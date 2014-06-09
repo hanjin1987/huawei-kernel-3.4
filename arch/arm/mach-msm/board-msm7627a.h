@@ -130,4 +130,11 @@ int lcd_camera_power_onoff(int on);
 
 void __init msm7627a_add_io_devices(void);
 void __init qrd7627a_add_io_devices(void);
+/*
+ * From the qualcomm patch, the CR is 00823327.
+ * Fix sd card resuming fail issue.
+ */
+#ifdef CONFIG_HUAWEI_KERNEL
+u32 msm7627a_power_collapse_latency(enum msm_pm_sleep_mode);
+#endif
 #endif

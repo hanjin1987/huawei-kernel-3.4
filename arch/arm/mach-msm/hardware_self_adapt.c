@@ -203,7 +203,7 @@ hw_bt_device_model get_hw_bt_device_model(void)
       || machine_is_msm7x27a_H868C()	
       || machine_is_msm8x25_C8950D()
       || machine_is_msm8x25_Y301_A1()
-      || machine_is_msm7x27a_U8815())
+      || machine_is_msm7x27a_C8820())
     {
         return BT_BCM4330;
     }
@@ -853,7 +853,7 @@ uint get_vibrator_voltage(void)
 {
     if(machine_is_msm7x27a_H867G() || 
        machine_is_msm7x27a_H868C() ||
-       machine_is_msm7x27a_U8815()  )
+       machine_is_msm7x27a_C8820()  )
     {
         return 3000;
     }
@@ -1258,7 +1258,7 @@ bool board_support_flash(void)
         || machine_is_msm8x25_C8813()
         || machine_is_msm8x25_H881C()	
         || machine_is_msm8x25_U8950()
-        || machine_is_msm7x27a_U8815())
+        || machine_is_msm7x27a_C8820())
 	 {
 		 return true;
 	 }

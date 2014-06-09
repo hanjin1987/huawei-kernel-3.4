@@ -28,6 +28,10 @@
 #include <linux/skbuff.h>
 #endif
 
+#ifdef CONFIG_HUAWEI_KERNEL
+#define SD_CARD_SLOT 1
+#endif
+
 #if (defined(CONFIG_MMC_MSM_SDC1_SUPPORT)\
 	|| defined(CONFIG_MMC_MSM_SDC2_SUPPORT)\
 	|| defined(CONFIG_MMC_MSM_SDC3_SUPPORT)\
@@ -269,12 +273,21 @@ static int msm_sdcc_setup_vreg(int dev_id, unsigned int enable)
 			pr_err("%s: could not enable regulator: %d\n",
 						__func__, rc);
 	} else {
-		clear_bit(dev_id, &vreg_sts);
+		/*
+		 * Don't disable the vdd of sd card. The sd card use sdcc1.
+		 * To fix the sd card resume fail issue.
+		 */
+#ifdef CONFIG_HUAWEI_KERNEL
+		if (SD_CARD_SLOT != dev_id)
+		{
+		    clear_bit(dev_id, &vreg_sts);
 
-		rc = regulator_disable(curr);
-		if (rc)
-			pr_err("%s: could not disable regulator: %d\n",
-						__func__, rc);
+		    rc = regulator_disable(curr);
+		    if (rc)
+		        pr_err("%s: could not disable regulator: %d\n",
+						    __func__, rc);
+		}
+#endif
 	}
 	return rc;
 }
